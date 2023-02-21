@@ -1,20 +1,21 @@
 import { TextField, Stack } from "@mui/material";
-import { Form, Formik, Field, ErrorMessage } from "formik";
+import { Form, Formik, Field, ErrorMessage, FormikConfig } from "formik";
 import React from "react";
 import { Contact } from "../types/types";
 import { contactSchema } from "./schema/contact";
 
 interface AddFormProps {
   contact?: Contact;
+  onSubmit: FormikConfig<Contact>["onSubmit"];
 }
 
-export default function AddForm({ contact }: AddFormProps) {
+export default function AddForm({ contact, onSubmit }: AddFormProps) {
   return (
     <Formik<Contact>
       initialValues={
         contact || { firstName: "", lastName: "", email: "", phone: "" }
       }
-      onSubmit={(values) => console.log(values)}
+      onSubmit={onSubmit}
       validationSchema={contactSchema}
     >
       <Form>
